@@ -93,7 +93,7 @@ class App extends React.Component<{}, AppState>{
             </div>
           </div>
           <div className="main-page__container">
-            <div className="main-page__container__title">Activo Team Members</div>
+            <div className="main-page__container__title">Travela Members</div>
             <div className="main-page__container__list">
               {
                 this.state.teamMates.map((teamMember: any, index: any) => (
