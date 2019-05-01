@@ -1,10 +1,11 @@
 {
   "main.css": "static/css/main.8acf4adf.css",
   "main.css.map": "static/css/main.8acf4adf.css.map",
-  "main.js": "static/js/main.048e89f5.js",
-  "main.js.map": "static/js/main.048e89f5.js.map",
+  "main.js": "static/js/main.d972f80d.js",
+  "main.js.map": "static/js/main.d972f80d.js.map",
   "static/media/delete.svg": "static/media/delete.14c82b63.svg",
   "static/media/digital-7.ttf": "static/media/digital-7.1e670d88.ttf",
+  "static/media/glass.png": "static/media/glass.2cfeac94.png",
   "static/media/travela-logo.svg": "static/media/travela-logo.c97ebf2d.svg",
   "static/media/travela_cover.svg": "static/media/travela_cover.18d46031.svg"
 }
