@@ -18,3 +18,7 @@ export interface AppState {
   time: number;
   memberName: string;
 }
+
+export interface ClockState {
+
+}
