@@ -1,5 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
 
 * {
   font-family: 'Quicksand', sans-serif;
@@ -13,6 +17,12 @@
   align-items: center;
   height: 100vh;
   color: #3359DB;
+
+  &__container {
+    &__delete-icon {
+      padding: 0.7em;
+    }
+  }
 
   &__background {
     position: absolute;
@@ -65,12 +75,7 @@
 
   &__timer-position {
     flex: 1;
-
-    &__title {
-      font-size: 18px;
-      font-weight: 400;
-      text-align: center;
-    }
+    top: 0;
   }
 
   &__container {
@@ -103,12 +108,13 @@
 
       &-item {
         width: 350px;
-        display: flex;
+        position: relative;
+        display: grid;
         height: 50px;
-        flex-direction: row;
+        grid-template-columns: 1fr auto;
+        align-items: center;
         background: white;
         justify-content: space-between;
-        align-items: center;
         border: 1px solid rgba(0,0,0,.1);
         box-shadow: 0.0625rem 0.2125rem 0.4rem 0 rgba(0, 0, 0, 0.1);
         transition: all 200ms ease-in-out;
@@ -117,12 +123,22 @@
         padding: 4px 20px;
         cursor: pointer;
 
+        &__container {
+        }
+
         &__name {
           font-weight: bold;
         }
+
+        &.speaking {
+          box-shadow: 0.0625rem 0.2125rem 0.4rem 0 rgba(0, 0, 0, 0.1);
+          height: 120px;
+          width: 370px;
+          margin-left: -10px;
+        }
       }
 
-      &-item:hover, &-item.speaking {
+      &-item:hover &:not(.speaking){
         box-shadow: 0.0625rem 0.2125rem 0.4rem 0 rgba(0, 0, 0, 0.1);
         height: 60px;
         width: 370px;

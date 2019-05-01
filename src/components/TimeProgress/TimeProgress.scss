@@ -1,0 +1,23 @@
+.time-progress {
+  position: absolute;
+  height: 2px;
+  bottom: 0;
+  width: 100%;
+
+  &__progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 1500ms width;
+    height: 100%;
+    background: rgb(51, 89, 219);;
+
+    &.success {
+      background: green;
+    }
+
+    &.failure {
+      background: red;
+    }
+  }
+}

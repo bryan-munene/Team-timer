@@ -6,11 +6,12 @@ import './assets/scss/globals.scss';
 import { AppState, TeamMate } from './interfaces';
 import cover from './assets/images/travela_cover.svg';
 import deleteIcon from './assets/images/delete.svg';
-import logo from './assets/images/travela-logo.svg';
 
 import { initializeApp } from 'firebase';
 import { dbConfig } from './Config';
 import Clock from "./components/Clock";
+import AudioVisualizer from "./components/AudioVisualizer";
+import TimeProgress from "./components/TimeProgress";
 class App extends React.Component<{}, AppState>{
   public timer:number = 0;
   public member:TeamMate;
@@ -76,28 +77,7 @@ class App extends React.Component<{}, AppState>{
   public renderTimer() {
     return (
       <div className="main-page__timer-position">
-        <Clock/>
-        <div>
-          <div className="main-page__timer-position__title">
-            Timer
-          </div>
-          <div className="main-page__timer-div">
-            <div className={
-              this.state.timeLeft.seconds <= 15 ?
-                "main-page__timer-div__time-critical" :
-                "main-page__timer-div__time"
-            }>
-              {this.state.timeLeft.seconds}
-            </div>
-            <p className={
-              this.state.timeLeft.seconds <= 15 ?
-                "main-page__timer-div__second-critical":
-                "main-page__timer-div__second"
-            }>
-              s
-            </p>
-          </div>
-        </div>
+        <Clock seconds={this.state.timeLeft.seconds}/>
       </div>
     )
   }
@@ -105,33 +85,32 @@ class App extends React.Component<{}, AppState>{
   public renderTeamMembers(){
     return (
       <div className="main-page__container">
-        <div className="main-page__container__logo">
-          <img src={logo} alt=""/>
-        </div>
         <div className="main-page__container__list">
           {
             this.state.teamMates.map((teamMember: any, index: any) => (
               <div
                 key={index}
-                className={`main-page__container__list-item ${teamMember.selected ? 'speaking': ''}`}
+                className={`main-page__container__list-item ${teamMember.selected || teamMember.isPaused ? 'speaking': ''}`}
               >
+                <TimeProgress seconds={teamMember.time} isDone={teamMember.isDone}/>
                 <div
                   className="main-page__container__list-item-container"
                   onClick={this.handleTeamMateTime(teamMember)}>
                   <div className="main-page__list-item__name">{`${teamMember.name}`}</div>
                   {
-                    teamMember.selected
-                      ? <div>Speaking</div>
-                      : teamMember.isPaused && !teamMember.isDone && <div>&#10074; &#10074;</div>
-                  }
-                  {
-                    teamMember.isDone &&  <div className="main-page__container__check">&#x2714;</div>
+                    (teamMember.selected || teamMember.isPaused ) && (
+                        <AudioVisualizer paused={teamMember.isPaused} seconds={teamMember.time}/>
+                    )
                   }
                 </div>
-                <img
-                  className="main-page__container__delete-icon"
-                  src={deleteIcon}
-                  onClick={this.deleteMember(teamMember)}/>
+                {
+                  !(teamMember.isPaused || teamMember.selected || teamMember.isDone) && (
+                      <img
+                          className="main-page__container__delete-icon"
+                          src={deleteIcon}
+                          onClick={this.deleteMember(teamMember)}/>
+                  )
+                }
               </div>
             ))
           }
@@ -177,7 +156,7 @@ class App extends React.Component<{}, AppState>{
         this.setState({
           teamMates: [...this.state.teamMates].map((teamMember: any) => (
             teamMember.name === selectedMember.name
-              ? { ...teamMember, selected: true }
+              ? { ...teamMember, selected: true , isPaused: false}
               : { ...teamMember, selected: false }
           ))
         })
@@ -197,13 +176,13 @@ class App extends React.Component<{}, AppState>{
       this.setState({
         teamMates: [...this.state.teamMates].map((teamMember: any) => (
           teamMember.name === selectedMember.name
-            ? { ...teamMember, selected: true }
+            ? { ...teamMember, selected: true, isPaused: false }
             : { ...teamMember, selected: false }
         ))
-      })
+      });
       this.startTimer(selectedMember);
     }
-  }
+  };
 
   private secondsToTime = (secs: any) => {
     const hours = Math.floor(secs / (60 * 60));

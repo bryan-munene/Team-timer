@@ -20,5 +20,15 @@ export interface AppState {
 }
 
 export interface ClockState {
+ seconds: number;
+}
 
+export interface AudioState {
+  paused: boolean;
+  seconds: number;
+}
+
+export interface TimeProgressState {
+  isDone: boolean;
+  seconds: number;
 }

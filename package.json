@@ -1,7 +1,7 @@
 {
   "name": "team-timer",
   "version": "0.1.0",
-  "homepage": "https://paulkariukirimiru.github.io/Team-timer/",
+  "homepage": "https://gitaumoses4.github.io/Team-timer/",
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.116",
@@ -31,6 +31,7 @@
     "react": "^16.4.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.2",
+    "react-p5-wrapper": "^0.0.4",
     "resolve": "1.6.0",
     "sass-loader": "^7.1.0",
     "source-map-loader": "^0.2.1",
