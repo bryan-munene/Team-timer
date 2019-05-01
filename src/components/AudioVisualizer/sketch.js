@@ -18,7 +18,7 @@ export default (p) => {
   };
 
   p.setup = () => {
-    p.createCanvas(350, 70);
+    p.createCanvas(370, 70);
     generateFrequencies();
     p.frameRate(20);
   };

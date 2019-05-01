@@ -1,14 +1,17 @@
 import logo from '../../assets/images/travela-logo.svg';
+import glass from '../../assets/images/glass.png';
 
 export default (p) => {
   let img;
+  let dome;
   const ringWidth = 10;
-  const sRingWidth = 3;
+  const sRingWidth = 2;
   let second = 0;
 
   p.setup = () => {
     p.createCanvas(600, 600);
     img = p.loadImage(logo);
+    dome = p.loadImage(glass);
   };
 
 
@@ -22,14 +25,16 @@ export default (p) => {
 
     p.strokeWeight(ringWidth);
     p.stroke(0);
-    p.fill(0, 0, 0, 0);
+    p.fill(255);
     p.ellipse(p.width / 2, p.height / 2, p.width - ringWidth, p.height - ringWidth);
 
     // stroke(0, 0, 0, 100)
-    p.stroke(51, 89, 219);
-    p.fill(255);
-    p.strokeWeight(sRingWidth);
-    p.ellipse(p.width / 2, p.height / 2, p.width - ringWidth - ringWidth, p.height - ringWidth - ringWidth);
+    for(let i = 0; i < 12; i++){
+      const offset = ringWidth + ringWidth + ( sRingWidth * i);
+      p.stroke(20 * i);
+      p.strokeWeight(sRingWidth);
+      p.ellipse(p.width / 2, p.height / 2, p.width- offset, p.height -  offset);
+    }
 
     p.image(img, p.width / 2 - 80, p.width / 4);
     // draw the minute pointers
@@ -61,5 +66,20 @@ export default (p) => {
     p.fill(second <= 15 && second > 0 ? 255 : 0, 0, 0);
     p.ellipse(0, 0, 10, 10);
     p.pop();
+
+    p.push();
+    p.tint(255, 200);
+    p.image(dome, -15, -15, p.width + 35, p.height + 35);
+    p.pop();
+
+    p.noFill();
+    p.strokeWeight(ringWidth);
+    p.stroke(0);
+    p.ellipse(p.width / 2, p.height / 2, p.width - ringWidth, p.height - ringWidth);
+
+    p.stroke(255);
+    p.strokeWeight(2);
+    p.ellipse(p.width / 2, p.height / 2, p.width, p.height);
+
   };
 }
